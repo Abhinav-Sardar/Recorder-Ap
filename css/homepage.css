@@ -1,0 +1,48 @@
+center{
+    color:white ; 
+}
+body {
+    height:100vh ; 
+    width:100vw ; 
+    background-color: black;
+    overflow-x: hidden;
+}
+
+* {
+    padding:0 ; 
+    margin:0 ; 
+}
+.rec {
+    font-size:4rem ; 
+}
+i.fa-video {
+    font-size:6vw ; 
+}
+.info {
+    color:white ; 
+    background-color: orange;
+    text-align: center;
+    padding:20px ; 
+}
+p{
+    font-size:1.2rem ; 
+}
+.icon-cont {
+    width:7vw ; 
+    text-align: center;
+    height:7vh;
+    background-color: orange;
+    color:white ; 
+    display:inline-block ; 
+    padding-top:20px ; 
+    border-radius: 10px ; 
+    margin:0 2vw ; 
+}
+i {
+    color:white ;
+    font-size:1.5rem ; 
+}
+.icons {
+    text-align: center;
+}
+

@@ -1,0 +1,38 @@
+ul{
+    border:1px solid white ; 
+    width: 100vw;
+    
+    background-color: orange;
+    /* display: flex;
+    flex-direction: row; */
+    border: 1px 0 solid white ; 
+    position: fixed;
+    top:0  ;
+}
+li {
+    border:1px solid black ; 
+    width:15vw ; 
+    height:7vh ; 
+    display:inline-block ; 
+    float:right ; 
+    /* font-size: 2rem ; ; */
+    text-align: center;
+    font-size: 1.7rem ; ;
+    font-family: Poppins , sans-serif;
+    transition: 400ms ease-in-out;
+    /* position: fixed; */
+    
+}
+li:hover {
+    color:orange ; 
+    background-color: black;
+}
+
+a{
+    text-decoration: none;
+    color:black ; 
+}
+
+main {
+    margin-top: 20vh;
+}
