@@ -17,7 +17,7 @@ li {
     float:right ; 
     /* font-size: 2rem ; ; */
     text-align: center;
-    font-size:5vh  ;
+    font-size:2vw  ; 
     font-family: Poppins , sans-serif;
     transition: 400ms ease-in-out;
     /* position: fixed; */

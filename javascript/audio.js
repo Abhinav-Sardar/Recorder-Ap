@@ -1,51 +1,55 @@
-const startBtn = document.getElementById('start') ; 
-const stopBtn = document.getElementById('stop') ; 
-let isRecording = false ; 
-let link  = document.querySelector('a') ; 
-let video = document.querySelector('video') ; 
-async function GetUserAudio() { 
+const startBtn  = document.getElementById('start') ; 
+const stopBtn  = document.getElementById('stop') ; 
+const audioElement = document.querySelector('audio') ; 
+
+const setStatus = (textContent) => {
+    const status = document.getElementById('status') ; 
+    status.innerText = textContent ; 
+}
+
+async function getUserAudio () {
     if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia){
         console.log('User media available!') ; 
-        let stream = await navigator.mediaDevices.getUserMedia({audio:true, video:false}) ; 
-        let recorder = new MediaRecorder(stream) ; 
-        console.log(recorder) ; 
-        let audioChunks = [] ; 
+        let stream = await navigator.mediaDevices.getUserMedia({audio:{
+            echoCancellation:true ,
+        } , video:false}) ; 
+        
+        console.log(stream) ; 
+        let recorder = new MediaRecorder(stream) ;
+        let audioChunks = [] ;  
         startBtn.onclick = () => {
-            startBtn.setAttribute('disabled' , 'disabled') ; 
-            stopBtn.removeAttribute('disabled') ; 
-            recorder.start();
-            console.log("Recording has started") ; 
+            console.log('Recorder started!');
+            setStatus('You are being recorded. Speak something!') ; 
+            recorder.start() ; 
+            startBtn.disabled = true ; 
         }
         stopBtn.onclick = () => {
-            stopBtn.setAttribute('disabled' , 'disabled') ; 
-            startBtn.removeAttribute('disabled') ; 
             recorder.stop() ; 
-            console.log('Recording has stopped') ; 
+            setStatus('Recording has stopped. Click on refresh record to set up a new recording.') ;
+            console.log('recording has stopped') ;  
+            stopBtn.disabled = true ; 
         }
-        recorder.ondataavailable = (event) => {
-            audioChunks.push(event.data) ;
+        recorder.ondataavailable = (e)=> {
+            audioChunks.push(e.data) ; 
         }
-        recorder.onstop = (ev) => {
-            // document.getElementById('download').removeAttribute('disabled') ; 
-            console.log(audioChunks) ; 
-            console.log(ev.data)
-            let blob = new Blob(audioChunks , {type:'audio/mp3'}) ; 
-            audioChunks = [] ; 
-            let audioUrl = window.URL.createObjectURL(blob) ; 
-            let audioOBJ= document.querySelector('audio') ; 
-            audioOBJ.setAttribute('controls' , 'controls')
-            audioOBJ.src = audioUrl ; 
-            console.log(audioUrl)
-            audioOBJ.onloadeddata = () => {
-                audioOBJ.play() ; 
+        recorder.onstop = () => {
+            const blob = new Blob(audioChunks , {type:"audio/mp3"}) ; 
+            // audioChunks = [] ; 
+            // console.log(URL.createObjectURL(blob)) ;
+            let audioURL = URL.createObjectURL(blob) ;
+            audioElement.src = audioURL ; 
+            audioElement.onloadedmetadata = ()=> {
+                audioElement.setAttribute('controls' , 'controls') ;
+                audioElement.play() ; 
             }
-            // document.querySelector('a').href = URL.createObjectURL(blob) 
-            // for; 
 
         }
     }
     else {
-        alert('Your browser doesnt support the user audio or video. Sorry!')
+        alert('Accessing user audio/video is prohibhited in your browser. Try using chrome.') ; 
     }
 }
-GetUserAudio(); 
+getUserAudio() ; 
+
+document.getElementById('refresh').addEventListener('click' , () => window.location.reload());
+console.log(navigator) ; 
