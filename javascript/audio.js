@@ -1,6 +1,8 @@
 const startBtn = document.getElementById('start') ; 
 const stopBtn = document.getElementById('stop') ; 
 let isRecording = false ; 
+let link  = document.querySelector('a') ; 
+let video = document.querySelector('video') ; 
 async function GetUserAudio() { 
     if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia){
         console.log('User media available!') ; 
@@ -21,19 +23,24 @@ async function GetUserAudio() {
             console.log('Recording has stopped') ; 
         }
         recorder.ondataavailable = (event) => {
-            audioChunks.push(event.data) ; 
+            audioChunks.push(event.data) ;
         }
-        recorder.onstop = () => {
-            console.log(audioChunks)
+        recorder.onstop = (ev) => {
+            // document.getElementById('download').removeAttribute('disabled') ; 
+            console.log(audioChunks) ; 
+            console.log(ev.data)
             let blob = new Blob(audioChunks , {type:'audio/mp3'}) ; 
             audioChunks = [] ; 
             let audioUrl = window.URL.createObjectURL(blob) ; 
             let audioOBJ= document.querySelector('audio') ; 
             audioOBJ.setAttribute('controls' , 'controls')
             audioOBJ.src = audioUrl ; 
+            console.log(audioUrl)
             audioOBJ.onloadeddata = () => {
                 audioOBJ.play() ; 
             }
+            // document.querySelector('a').href = URL.createObjectURL(blob) 
+            // for; 
 
         }
     }
@@ -41,4 +48,4 @@ async function GetUserAudio() {
         alert('Your browser doesnt support the user audio or video. Sorry!')
     }
 }
-GetUserAudio() ; 
+GetUserAudio(); 
