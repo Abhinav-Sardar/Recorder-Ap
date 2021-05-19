@@ -1,6 +1,7 @@
 let startBtn = document.getElementById('start') ; 
 let stopBtn = document.getElementById('stop') ; 
 const video = document.querySelector('video') ; 
+video.style.display = 'none' ; 
 async function GetUserScreen() {
     if(navigator.mediaDevices && navigator.mediaDevices.getDisplayMedia){
         console.log('User screen available') ; 
@@ -16,20 +17,38 @@ async function GetUserScreen() {
                 }
             }
             recorder.onstop = () => {
-                console.log('Stopped') ; 
-                let blob = new Blob(videoChunks , {type:'video/webm'}) ; 
-                console.log(blob) ; 
-                let audioUrl = URL.createObjectURL(blob) ; 
-                video.src = audioUrl ; 
-                video.setAttribute('controls' , 'controls') ; 
-                video.onloadedmetadata = () => {
-                    video.play() ; 
+                video.style.display = 'block' ; 
+                let blob = new Blob(videoChunks , {type:'audio/webm'}) ; 
+                let audioURL = window.URL.createObjectURL(blob) ; 
+                let button = document.createElement('button') ;
+                button.innerText = 'Download' 
+                button.style.backgroundColor = 'blue' ; 
+                button.onclick = ()=> {
+                    let result = prompt('What should be the extension of the downloaded file ? Type mp4 for .mp4 and webm for .webm. (.webm is recommended due to browser issues.)') ; 
+                    if(result.toLowerCase() === 'mp4') {
+                        let newBlob = new Blob(videoChunks , {type:`video/mp4`}) ; 
+                        let url = URL.createObjectURL(newBlob); 
+                        Download(url) ; 
+                    }
+                    else if(result.toLowerCase() === 'webm'){
+                        let newBlob = new Blob(videoChunks , {type:`video/webm`}) ; 
+                        let url = URL.createObjectURL(newBlob); 
+                        Download(url) ;
+                    }
+                    else {
+                        alert('Invalid response recieved! Expected webm or mp4')
+                    }
                 }
+                document.getElementById('buttons').appendChild(button); 
+                video.src = audioURL ; 
+                video.onloadedmetadata = () => video.play() ; 
+                video.setAttribute('controls' ,'controls') ; 
             }
             
         }
         catch(error) {
             console.log(error) ; 
+            startBtn.disabled = false ; 
             alert('We cant record your screen without the permissions. Give us permissions 😠')
         }
 
@@ -43,3 +62,15 @@ startBtn.addEventListener('click' , () => {
     startBtn.disabled = true ; 
     GetUserScreen() ;
 }) ; 
+
+
+function Download(link){
+    let a = document.createElement('a') ; 
+    a.href = link ; 
+    a.download = 'Recording' ; 
+    a.style.display = 'none' ; 
+    document.body.appendChild(a) ; 
+    a.click() ; 
+}
+
+document.getElementById('refresh').addEventListener('click' , () => window.location.reload())

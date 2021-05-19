@@ -11,20 +11,28 @@ video {
     /* height:200px ; width:200px ;  */
     height:50vh ; 
     width:30vw ; 
+    /* border:1px solid black ;  */
 
 }
-#start {
+button{
     height:10vh ; 
     width:12vw  ; 
-    font-size:4vh ; 
+    font-size:3.5vh ; 
     margin:5px ; 
     color:white ; 
     border:0  ;
-     background-color: lime;
+    background-color: lime;
+    font-family: 'Fredoka One', cursive;
 }
 h1 {
     font-size:5vh ; 
 }
 h2 {
     font-size:4vh ; 
+    padding:5px 0 ; 
+    font-family: 'Dosis', sans-serif; 
 }
+#refresh {
+    background-color: red;
+}
+
