@@ -13,7 +13,7 @@ body {
     margin:0 ; 
 }
 .rec {
-    font-size:4rem ; 
+    font-size:3rem ; 
 }
 i.fa-video {
     font-size:6vw ; 
@@ -25,7 +25,7 @@ i.fa-video {
     padding:20px ; 
 }
 p{
-    font-size:1.2rem ; 
+    font-size:1.4rem ; 
 }
 .icon-cont {
     width:7vw ; 
@@ -46,3 +46,6 @@ i {
     text-align: center;
 }
 
+.info h2 , .info h1 {
+    font-family: 'Righteous', cursive;
+}
