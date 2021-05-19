@@ -1,7 +1,7 @@
 const startBtn  = document.getElementById('start') ; 
 const stopBtn  = document.getElementById('stop') ; 
 const audioElement = document.querySelector('audio') ; 
-
+const downloadBtn = document.getElementById('download') ; 
 const setStatus = (textContent) => {
     const status = document.getElementById('status') ; 
     status.innerText = textContent ; 
@@ -33,7 +33,7 @@ async function getUserAudio () {
             audioChunks.push(e.data) ; 
         }
         recorder.onstop = () => {
-            const blob = new Blob(audioChunks , {type:"audio/mp3"}) ; 
+            const blob = new Blob(audioChunks , { 'type' : 'audio/mp3'  }) ; 
             // audioChunks = [] ; 
             // console.log(URL.createObjectURL(blob)) ;
             let audioURL = URL.createObjectURL(blob) ;
@@ -41,6 +41,23 @@ async function getUserAudio () {
             audioElement.onloadedmetadata = ()=> {
                 audioElement.setAttribute('controls' , 'controls') ;
                 audioElement.play() ; 
+            }
+            downloadBtn.style.display = 'block' ; 
+            downloadBtn.onclick = () => {
+                let result = prompt('What should be the extension of the downloaded file ? Type mp3 for .mp3 and ogg for .ogg.') ; 
+                    if(result.toLowerCase() === 'mp3') {
+                        let newBlob = new Blob(audioChunks , {type:`audio/mp3`}) ; 
+                        let url = URL.createObjectURL(newBlob); 
+                        Download(url) ; 
+                    }
+                    else if(result.toLowerCase() === 'ogg'){
+                        let newBlob = new Blob(audioChunks , {type:`audio/ogg; codec=opus`}) ; 
+                        let url = URL.createObjectURL(newBlob); 
+                        Download(url) ;
+                    }
+                    else {
+                        alert('Invalid response recieved! Expected ogg or mp3')
+                    }
             }
 
         }
@@ -52,4 +69,11 @@ async function getUserAudio () {
 getUserAudio() ; 
 
 document.getElementById('refresh').addEventListener('click' , () => window.location.reload());
-console.log(navigator) ; 
+function Download(link){
+    let a = document.createElement('a') ; 
+    a.href = link ; 
+    a.download = 'Recording' ; 
+    a.style.display = 'none' ; 
+    document.body.appendChild(a) ; 
+    a.click() ; 
+}

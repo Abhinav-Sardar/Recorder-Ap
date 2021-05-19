@@ -19,10 +19,11 @@ ul {
 
 button {
     margin:0 2vw ; 
-    padding:15px ; 
+    padding:1vw ;  ; 
     color:White ; 
     font-size:3vh ; 
     border:0 ; 
+    /* max-width: 100vw ; ; */
     
 }
 #start {
@@ -33,6 +34,10 @@ button {
 }
 #refresh{
     background-color: blue;
+}
+#download {
+    background-color: cadetblue;
+    display: none;
 }
 
 
