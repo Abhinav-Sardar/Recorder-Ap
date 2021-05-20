@@ -7,6 +7,9 @@ ul {
     position: fixed;
     top:0 ; 
 }
+h2 {
+    font-family: 'Quicksand', sans-serif;
+}
 *{
     padding:0 ; 
     margin: 0;
@@ -19,6 +22,8 @@ button {
     font-size:3vh ;
     border:0 ; 
     margin:0 1vw ; 
+    /* font-family: 'Prompt', sans-serif; */
+    font-family: 'Crete Round', serif;
 }
 #start-cam {
     background-color: limegreen;
@@ -44,6 +49,13 @@ span {
 }
 video {
     display:none ; 
-    height:200px ; 
-    width:200px ; 
+    /* height:200px ; 
+    width:200px ;  */
+    width:30vw ; 
+}
+#refresh {
+    background-color:tomato ; 
+}
+h2{
+    margin: 2vh 0; 
 }

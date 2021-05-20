@@ -4,6 +4,8 @@ let stopRecording = document.getElementById('stop') ;
 let download = document.getElementById('download') ;
 let hasStartedCamera = false ; 
 let startCamera = document.getElementById('start-cam') ; 
+
+let setStatus  = (status) => document.getElementById('status').innerText = status ;  
 async function getUserCamera () {
     if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia){
         console.log('Media available');
@@ -17,11 +19,13 @@ async function getUserCamera () {
                 video.style.display=  'block' ; 
                 startCamera.innerText = 'Stop Camera' ; 
                 hasStartedCamera = true ; 
+                setStatus('Your camera is on but you are not being recorded.')
             }
             else {
                 video.style.display=  'none' ; 
                 startCamera.innerText = 'Start Camera' ; 
                 hasStartedCamera = false ; 
+                setStatus('Your camera is off.')
             }
         }
         recorder.ondataavailable = (ev) => {
@@ -34,9 +38,13 @@ async function getUserCamera () {
             else {
                 recorder.start() ; 
                 console.log('Started')  ; 
-                stopRecording.onclick = () => recorder.stop() ; 
+                stopRecording.onclick = () => {
+                    recorder.stop() ; 
+                    setStatus('Your face has been recorded! Enjoy the recording :)')
+                }
                 startCamera.disabled = true ; 
-                startRecording.disabled = true ; 
+                startRecording.disabled = true ;
+                setStatus('You are being recorded! Make some gestures.')
             }
         }
 
@@ -51,9 +59,27 @@ async function getUserCamera () {
             video.src = videoURL ; 
             document.querySelector('#videocont').appendChild(video) ; 
             video.style.display = 'block'
-            console.log(video) 
+            console.log(video)  ; 
             video.onloadedmetadata = () => video.play() ; 
+            download.style.display = 'inline' ; 
+            download.onclick = () => {
+                let result = prompt('What should be the extension of the downloaded file ? Type mp4 for .mp4 and webm for .webm. (.webm is recommended due to browser issues.)') ; 
+                if(result.toLowerCase() === 'mp4') {
+                    let newBlob = new Blob(videoChunks , {type:`video/mp4`}) ; 
+                    let url = URL.createObjectURL(newBlob); 
+                    Download(url) ; 
+                }
+                else if(result.toLowerCase() === 'webm'){
+                    let newBlob = new Blob(videoChunks , {type:`video/webm`}) ; 
+                    let url = URL.createObjectURL(newBlob); 
+                    Download(url) ;
+                }
+                else {
+                    alert('Invalid response recieved! Expected webm or mp4')
+                }
+            }
         }
+
     }
     
     else {
@@ -62,3 +88,13 @@ async function getUserCamera () {
 }
 getUserCamera() ; 
 
+document.getElementById('refresh').onclick = () => window.location.reload() ; 
+
+function Download(link){
+    let a = document.createElement('a') ; 
+    a.href = link ; 
+    a.download = 'Recording' ; 
+    a.style.display = 'none' ; 
+    document.body.appendChild(a) ; 
+    a.click() ; 
+}

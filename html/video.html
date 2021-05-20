@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html lang="en" class="animate__animated animate__fadeIn">
 <head>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Crete+Round&display=swap" rel="stylesheet">
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -29,6 +32,11 @@
     <main>
         <center>
             <h1>Welcome to the video recorder</h1>
+            <h2>Click on the start camera button to start/stop the camera</h2>
+            <h2>Click on start recording to start your recording.</h2>
+            <h2>Click on stop recording once you are done.</h2>
+            <h2>Enjoy the recording.</h2>
+            <br>
             <button id="start-cam">
                 Start Camera
             </button>
@@ -38,11 +46,18 @@
                 <button id="stop">
                 Stop Recording
             </button><br><br>
-            <button id="download">Download</button><br>
+            <h1 id= "status">Your camera is off</h1>
+            <br>
+            <button id="refresh">
+                Refresh Recorder
+            </button>
+            <button id="download">Download</button><br><br></br>
             <div id="videocont">
                 <video src=""></video>
             </div>
+            <!-- <br> -->
         </center>
+        <br>
     </main>
 </body>
 <!-- 
