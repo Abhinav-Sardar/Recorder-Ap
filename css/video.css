@@ -1,0 +1,49 @@
+body {
+    height:100vh ; 
+    width:100vw ; 
+    overflow-x: hidden;
+}
+ul {
+    position: fixed;
+    top:0 ; 
+}
+*{
+    padding:0 ; 
+    margin: 0;
+}
+button {
+    height:8vh ; 
+    padding:0 2vw ; 
+    background-color: green;
+    color:white; 
+    font-size:3vh ;
+    border:0 ; 
+    margin:0 1vw ; 
+}
+#start-cam {
+    background-color: limegreen;
+}
+#start {
+    background-color: magenta;
+}
+#stop {
+    background-color: red;
+}
+#download {
+    background-color: blue;
+    display:none ; 
+}
+input[type = "checkbox"]{
+    /* font-size: 2rem;; */
+    height:4vh ; 
+    width:2vw ; 
+}
+span {
+    font-size: 5vh;
+    margin-left: 1vw;
+}
+video {
+    display:none ; 
+    height:200px ; 
+    width:200px ; 
+}

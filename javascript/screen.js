@@ -18,8 +18,8 @@ async function GetUserScreen() {
             }
             recorder.onstop = () => {
                 video.style.display = 'block' ; 
-                let blob = new Blob(videoChunks , {type:'audio/webm'}) ; 
-                let audioURL = window.URL.createObjectURL(blob) ; 
+                let blob = new Blob(videoChunks , {type:'video/webm'}) ; 
+                let videoURL = window.URL.createObjectURL(blob) ; 
                 let button = document.createElement('button') ;
                 button.innerText = 'Download' 
                 button.style.backgroundColor = 'blue' ; 
@@ -40,7 +40,7 @@ async function GetUserScreen() {
                     }
                 }
                 document.getElementById('buttons').appendChild(button); 
-                video.src = audioURL ; 
+                video.src = videoURL;
                 video.onloadedmetadata = () => video.play() ; 
                 video.setAttribute('controls' ,'controls') ; 
             }
