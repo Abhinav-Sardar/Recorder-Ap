@@ -18,6 +18,7 @@ ul {
 }
 
 button {
+    font-family: 'Crete Round', serif;
     margin:0 2vw ; 
     padding:1vw ;  ; 
     color:White ; 
@@ -42,3 +43,6 @@ button {
 
 
 
+h2 {
+    font-family: 'Quicksand', sans-serif;
+}
